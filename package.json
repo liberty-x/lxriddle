@@ -1,0 +1,23 @@
+{
+  "name": "lxriddle",
+  "version": "1.0.0",
+  "description": "The search for a riddle-based forum is over",
+  "main": "handler.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liberty-x/lxriddle.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liberty-x/lxriddle/issues"
+  },
+  "homepage": "https://github.com/liberty-x/lxriddle#readme"
+}
