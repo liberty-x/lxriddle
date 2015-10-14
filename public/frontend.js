@@ -1,45 +1,32 @@
-(function pageLoad(){
+(function pageLoad() {
   var riddleReq = new XMLHttpRequest();
 
-  riddleReq.onreadystatechange = function(){
-    if (riddleReq.readyState === 4 && riddleReq.status === 200){
-      document.getElementById('riddle').innerHTML = riddleReq.responseText;
+  riddleReq.onreadystatechange = function() {
+    if (riddleReq.readyState === 4 && riddleReq.status === 200) {
+      var output = (riddleReq.responseText).replace(/%20/g, ' ')
+      document.getElementById('riddle').innerHTML = JSON.parse(output);
     }
   }
   riddleReq.open('GET', '/riddle');
   riddleReq.send();
 }());
 
-document.getElementById('postRiddle').addEventListener('submit', function (e){
-    console.log('one');
-    e.preventDefault();
-    var postRiddleReq = new XMLHttpRequest();
-    var riddleQuestion = document.getElementById('newRiddle').value;
-    var riddleAnswer = document.getElementById('newRiddleAns').value;
+document.getElementById('riddleAnswer').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var answerReq = new XMLHttpRequest();
+  var answer = document.getElementById('answer').value;
+  var riddle = document.getElementById('riddle').innerHTML;
+  console.log(answer, riddle)
 
-    postRiddleReq.onreadystatechange = function(){
-      if (postRiddleReq.readyState === 4 && postRiddleReq.status === 200){
-        if(postRiddleReq.responseText === 'OK') {
-          document.getElementById('riddleAdded').innerHTML = "Thanks we have added your riddle"
-        } else{
-          document.getElementById('riddleAdded').innerHTML = "Sorry there was an error, please try again."
-        }
+  answerReq.onreadystatechange = function() {
+    if (answerReq.readyState === 4 && answerReq.status === 200) {
+      if (answerReq.responseText === answer) {
+        document.getElementById('correctAnswer').innerHTML = 'Correct!'
+      } else {
+        document.getElementById('correctAnswer').innerHTML = 'Try Again!'
       }
     }
-    postRiddleReq.open('POST', '/' + riddleQuestion + '/' + riddleAnswer);
-    postRiddleReq.send();
-})
-
-// var jwt = require('jsonwebtoken');
-//
-// function createJWT(input){
-//   var username = document.getElementById('username').value;
-//   var password = document.getElementById('password').value;
-//   var obj = {
-//     'username': username;
-//     'password': password
-//   }
-//
-//   var token = jwt.sign(obj, 'shhhh');
-//
-// }
+  }
+  answerReq.open('GET', '/answer/' + riddle);
+  answerReq.send();
+});
