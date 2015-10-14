@@ -23,6 +23,7 @@ li {
   float: left;
   padding-left: 2em;
   font-size: 1em;
+  text-decoration: none;
 }
 
 a {
