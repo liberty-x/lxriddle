@@ -7,17 +7,25 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/.bin/tape ./test/backendTest.js",
     "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/liberty-x/lxriddle.git"
+    "url": "https://github.com/liberty-x/lxriddle.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/liberty-x/lxriddle/issues"
   },
-  "homepage": "https://github.com/liberty-x/lxriddle#readme"
+  "homepage": "https://github.com/liberty-x/lxriddle#readme",
+  "devDependencies": {
+    "pre-commit": "^1.1.1",
+    "shot": "^1.7.0",
+    "tape": "^4.2.1"
+  },
+  "pre-commit": [
+  "test"
+  ]
 }
