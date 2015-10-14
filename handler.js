@@ -30,6 +30,11 @@ var serve = (function() {
       addToDb(riddle, answer, function(err, reply){
         res.end(reply);
       });
+    } else if (url.indexOf('/answer') > -1) {
+      var riddle = url.split('/')[2]
+      getAnswer(riddle, function (err, reply) {
+        res.end(JSON.stringify(reply))
+      })
     }
 
   }
@@ -43,7 +48,9 @@ var serve = (function() {
     client.HMSET(riddle, 'answer', answer, callback);
   }
 
-  //function getAnswer()
+  function getAnswer(riddle, callback) {
+    client.HGETALL(riddle, callback);
+  }
 
   return {
     handler: handler,

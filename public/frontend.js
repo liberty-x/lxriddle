@@ -14,13 +14,15 @@
 document.getElementById('riddleAnswer').addEventListener('submit', function(e) {
   e.preventDefault();
   var answerReq = new XMLHttpRequest();
-  var answer = document.getElementById('answer').value;
+  var answer = document.getElementById('answer').value.toLowerCase();
   var riddle = document.getElementById('riddle').innerHTML;
-  console.log(answer, riddle)
+  console.log('FROM USER >>>>>>', answer)
 
   answerReq.onreadystatechange = function() {
     if (answerReq.readyState === 4 && answerReq.status === 200) {
-      if (answerReq.responseText === answer) {
+      var answerFromDb = (JSON.parse(answerReq.responseText).answer).replace(/%20/g, ' ')
+     console.log('FROM DB >>>>>>>>', answerFromDb)
+      if (answerFromDb === answer) {
         document.getElementById('correctAnswer').innerHTML = 'Correct!'
       } else {
         document.getElementById('correctAnswer').innerHTML = 'Try Again!'
