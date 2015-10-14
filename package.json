@@ -26,6 +26,9 @@
     "tape": "^4.2.1"
   },
   "pre-commit": [
-  "test"
-  ]
+    "test"
+  ],
+  "dependencies": {
+    "redis": "^2.2.3"
+  }
 }
