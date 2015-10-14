@@ -18,7 +18,6 @@ var serve = (function() {
     }
   }
 
-
   function create() {
     http.createServer(handler).listen(port);
     console.log('Server running at http://' + port);

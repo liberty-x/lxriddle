@@ -1,7 +1,43 @@
-p {
-  color: red;
+* {
+  font-family: sans-serif;
 }
 
 body {
-  background-color: teal;
+  margin: 0;
+}
+
+.navbar {
+  background-color: #515151;
+  overflow: auto;
+  width: 100%;
+}
+
+ul {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  float: right;
+  padding-right: 1em;
+}
+
+li {
+  float: left;
+  padding-left: 2em;
+  font-size: 1em;
+}
+
+a {
+  text-decoration: none;
+  color: #F3F5F4;
+}
+
+a:hover {
+  color: #b7b7b7;
+}
+
+h2, p, form {
+  text-align: center;
+}
+
+.postRiddle {
+  padding-top: 5em;
 }
