@@ -10,11 +10,8 @@
   riddleReq.send();
 }());
 
-document.getElementById('riddleAnswer'.addEventListener('submit', function(e){
-  e.preventDefault();
-}));
-
 document.getElementById('postRiddle').addEventListener('submit', function (e){
+    console.log('one');
     e.preventDefault();
     var postRiddleReq = new XMLHttpRequest();
     var riddleQuestion = document.getElementById('newRiddle').value;
