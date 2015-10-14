@@ -23,7 +23,7 @@ li {
   float: left;
   padding-left: 2em;
   font-size: 1em;
-  text-decoration: none;
+  list-style-type: none;
 }
 
 a {
@@ -35,7 +35,7 @@ a:hover {
   color: #b7b7b7;
 }
 
-h2, p, form {
+h2, p, form, h4 {
   text-align: center;
 }
 
