@@ -29,6 +29,7 @@
     "test"
   ],
   "dependencies": {
-    "redis": "^2.2.3"
+    "redis": "^2.2.3",
+    "jsonwebtoken": "^5.4.0"
   }
 }

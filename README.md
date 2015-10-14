@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/liberty-x/lxriddle.svg?branch=master)](https://travis-ci.org/liberty-x/lxriddle)
+
 # LX Riddle
 The search for a riddle-based forum is over!!! :+1::+1:
 
