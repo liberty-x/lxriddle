@@ -3,7 +3,6 @@ var server = require('../handler.js');
 var shot = require('shot');
 
 test('check server is running', function(t){
-
   var request = {
     method:'GET',
     url: '/'
@@ -19,7 +18,6 @@ test('check server is running', function(t){
 
 
 test('check handler can process files', function(t){
-
   var request = {
     method:'GET',
     url: '/public/style.css'

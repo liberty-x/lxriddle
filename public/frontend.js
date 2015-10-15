@@ -3,7 +3,7 @@ var request = new XMLHttpRequest();
 (function pageLoad() {
   request.onreadystatechange = function() {
     if (request.readyState === 4 && request.status === 200) {
-      var output = (request.responseText).replace(/%20/g, ' ')
+      var output = (request.responseText)
       document.getElementById('riddle').innerHTML = JSON.parse(output);
     }
   }
@@ -19,7 +19,7 @@ document.getElementById('riddleAnswer').addEventListener('submit', function(e) {
 
   request.onreadystatechange = function() {
     if (request.readyState === 4 && request.status === 200) {
-      var answerFromDb = (JSON.parse(request.responseText).answer).replace(/%20/g, ' ')
+      var answerFromDb = (JSON.parse(request.responseText)).answer
      console.log('FROM DB >>>>>>>>', answerFromDb)
       if (answerFromDb === answer) {
         document.getElementById('correctAnswer').innerHTML = 'Correct!'
@@ -35,7 +35,7 @@ document.getElementById('riddleAnswer').addEventListener('submit', function(e) {
 document.getElementById('next').addEventListener('click', function(){
   request.onreadystatechange = function () {
     if (request.readyState === 4 && request.status === 200) {
-      var output = (request.responseText).replace(/%20/g, ' ')
+      var output = (request.responseText)
       document.getElementById('riddle').innerHTML = JSON.parse(output);
     }
   }
