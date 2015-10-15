@@ -40,7 +40,21 @@ var serve = (function() {
   }
 
   function create() {
-    http.createServer(handler).listen(port);
+    var server = http.createServer(handler).listen(port);
+    var io = require('socket.io')(server);
+
+    io.on('connection', manageConnection);
+
+    function manageConnection(socket){
+      console.log('a user connected');
+      socket.on('disconnect', function(){
+        console.log('user disconnected');
+      });
+      socket.on('chat message in', function(msg){
+        console.log('message>>>>>>>', msg);
+        io.emit('chat message out', msg);
+      });
+    }
     console.log('Server running at http://' + port);
   }
 

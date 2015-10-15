@@ -42,3 +42,14 @@ document.getElementById('next').addEventListener('click', function(){
   request.open('GET', '/newriddle');
   request.send();
 })
+
+// document.getElementsById('chatForm').addEventListener('submit', function(e){
+//     var input = document.getElementById('m');
+//     var messages= document.getElementById('socketioMessages');
+//     e.preventDefault();
+//     socket.emit('chat message in', input.value);
+//     input.value = '';
+//   });
+//   socket.on('chat message out', function(msg){
+//     messages.innerHTML += ("<li>"+msg+"</li>");
+//   });
