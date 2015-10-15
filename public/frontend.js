@@ -33,6 +33,7 @@ document.getElementById('riddleAnswer').addEventListener('submit', function(e) {
 
 document.getElementById('next').addEventListener('click', function(){
   document.getElementById('correctAnswer').innerHTML = '';
+  document.getElementById('answer').value = '';
   request.onreadystatechange = function () {
     if (request.readyState === 4 && request.status === 200) {
       var output = (request.responseText);
@@ -56,24 +57,47 @@ document.getElementById("postRiddle").addEventListener("submit", function(e) {
       if (request.responseText === "OK") {
         document.getElementById("riddleAdded").innerHTML = "Thanks we have added your riddle";
       } else {
-        document.getElementById("riddleAdded").innerHTML = "Sorry there was an error, please try again.";
+        document.getElementById("riddleAdded").innerHTML = "Sorry, you need to log in to post a riddle.";
       }
     }
   };
   request.open("POST", "/" + riddleQuestion + "/" + riddleAnswer);
+  request.setRequestHeader('authorisation', token);
   request.send();
 });
 
-
-var socket = io();
-var messages = document.getElementById('socketioMessages');
-document.getElementById('chatForm').addEventListener('submit', function(e) {
-  var input = document.getElementById('messageInput');
-  console.log(input.value);
+document.getElementById('auth').addEventListener('submit', function(e) {
   e.preventDefault();
-  socket.emit('chat message in', input.value);
-  input.value = '';
+  var auth = new XMLHttpRequest();
+  var username = document.getElementById('username').value;
+  var password = document.getElementById('password').value;
+  var obj = {
+    'username': username,
+    'password': password
+  };
+  auth.onreadystatechange = function() {
+    if (auth.readyState === 4 && auth.status === 200) {
+      var token = auth.getResponseHeader('authorisation');
+      document.getElementById('loginResponse').innerHTML = auth.responseText;
+      console.log(token);
+    }
+    else {
+      document.getElementById('loginResponse').innerHTML = auth.responseText;
+    }
+  };
+  auth.open('POST', '/auth');
+  auth.send(JSON.stringify(obj));
 });
-socket.on('chat message out', function(msg) {
-  messages.innerHTML += ("<li>" + msg + "</li>");
-});
+
+// var socket = io();
+// var messages = document.getElementById('socketioMessages');
+// document.getElementById('chatForm').addEventListener('submit', function(e) {
+//   var input = document.getElementById('messageInput');
+//   console.log(input.value);
+//   e.preventDefault();
+//   socket.emit('chat message in', input.value);
+//   input.value = '';
+// });
+// socket.on('chat message out', function(msg) {
+//   messages.innerHTML += ("<li>" + msg + "</li>");
+// });

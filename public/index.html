@@ -6,18 +6,19 @@
   </head>
 
   <body>
-
-
     <div class="navbar">
       <img class="nav-logo" src="https://files.gitter.im/RachelBLondon/libert-x/rI9D/logoTextWhite-06.png" alt="LX Riddle" />
+  <form id="auth">
       <ul>
         <li><input type="text" placeholder="username" id="username"></li>
         <li><input type="text" placeholder="password" id="password"></li>
         <li><input type="submit"></li>
       </ul>
+      <p id="loginResponse"> </p>
+  </form>
+
     </div>
     <div class="splash">
-
     <img class="image-logo" src="https://files.gitter.im/RachelBLondon/libert-x/VJiM/logo-blue-shirt-07-07.png" alt="LX Riddle Logo" />
     </div>
     <p id="riddle"></p>
@@ -25,7 +26,6 @@
 
     <form id="riddleAnswer">
       <input type="text" placeholder="answer" id="answer" class="answer">
-      <!-- <button id="next">New Riddle</button> -->
       <input type="submit" class="submit-button">
     </form>
 
@@ -36,7 +36,7 @@
     <form class="postRiddle" id="postRiddle">
       <input type="text" placeholder="Riddle" id="newRiddle">
       <input type="text" placeholder="Answer" id="newRiddleAns">
-      <input type="submit" id="submitRiddle">
+      <input type="submit">
     </form>
 
     <h4 id="riddleAdded"></h4>
