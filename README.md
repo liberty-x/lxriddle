@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/liberty-x/lxriddle.svg?branch=master)](https://travis-ci.org/liberty-x/lxriddle)
+[![Code Climate](https://codeclimate.com/github/liberty-x/lxriddle/badges/gpa.svg)](https://codeclimate.com/github/liberty-x/lxriddle)
+[![Test Coverage](https://codeclimate.com/github/liberty-x/lxriddle/badges/coverage.svg)](https://codeclimate.com/github/liberty-x/lxriddle/coverage)
 
 # LX Riddle
 The search for a riddle-based forum is over!!! :+1::+1:
