@@ -4,6 +4,7 @@ document.getElementById('postRiddle').addEventListener('submit', function(e) {
   var postRiddleReq = new XMLHttpRequest();
   var riddleQuestion = document.getElementById('newRiddle').value;
   var riddleAnswer = document.getElementById('newRiddleAns').value.toLowerCase();
+  console.log(riddleAnswer, riddleQuestion)
 
   postRiddleReq.onreadystatechange = function() {
     if (postRiddleReq.readyState === 4 && postRiddleReq.status === 200) {

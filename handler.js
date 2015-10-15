@@ -24,14 +24,16 @@ var serve = (function() {
         res.end(JSON.stringify(obj));
       });
     } else if (req.method === 'POST') {
-      var riddle = url.split('/')[1]
-      var answer = url.split('/')[2]
+      var riddle = (url.split('/')[1]).replace(/%20/g, ' ')
+      var answer = (url.split('/')[2]).replace(/%20/g, ' ')
       addToDb(riddle, answer, function(err, reply){
         res.end(reply);
       });
     } else if (url.indexOf('/answer') > -1) {
-      var riddle = url.split('/')[2]
+      var riddle = (url.split('/')[2]).replace(/%20/g, ' ');
+      console.log('RIDDLE FROM DB >>>>>>>',riddle);
       getAnswer(riddle, function (err, reply) {
+        console.log('ANSWER FROM DB >>>>>', reply)
         res.end(JSON.stringify(reply))
       })
     }

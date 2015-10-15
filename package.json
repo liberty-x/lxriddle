@@ -8,7 +8,9 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/tape ./test/backendTest.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "coverage": "istanbul cover ./node_modules/.bin/tape ./test/backendTest.js",
+    "codeclimate": "CODECLIMATE_REPO_TOKEN=54de240d29ec50acf7ddcf35f7c31a3812721e1cb57a001e059966aab4745383 codeclimate-test-reporter < ./coverage/lcov.info"
   },
   "repository": {
     "type": "git",
@@ -21,12 +23,15 @@
   },
   "homepage": "https://github.com/liberty-x/lxriddle#readme",
   "devDependencies": {
+    "codeclimate-test-reporter": "^0.1.1",
+    "istanbul": "^0.3.22",
     "pre-commit": "^1.1.1",
     "shot": "^1.7.0",
     "tape": "^4.2.1"
   },
   "pre-commit": [
-    "test"
+    "test",
+    "coverage"
   ],
   "dependencies": {
     "redis": "^2.2.3",
