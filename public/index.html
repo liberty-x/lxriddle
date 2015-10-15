@@ -7,24 +7,27 @@
   <body>
 
     <div class='navbar'>
+      <!-- <img src="https://files.gitter.im/RachelBLondon/libert-x/rI9D/logoTextWhite-06.png" alt="LX Riddle" /> -->
       <ul>
         <a href ='/public/login.html'><li>Login</li></a>
         <a href='/public/postRiddle.html'><li>Post Your Own Riddle</li></a>
       <ul>
     </div>
 
-    <h2>LX Riddle</h2>
 
+    <img class="image-logo" src="https://files.gitter.im/RachelBLondon/libert-x/9mpK/logoPerson-02.png" alt="LX Riddle Logo" />
     <p id='riddle'></p>
+    <h2> Can you solve it?</h2>
 
     <form id='riddleAnswer'>
       <input type='text' placeholder='answer' id='answer'></input>
+      <button id='next'>New Riddle</button>
       <input type='submit'></input>
     </form>
 
     <p id='correctAnswer'></p>
 
-    <button id='next'>New Riddle</button>
+    <!-- <button id='next'>New Riddle</button> -->
 
 
       <ul id='socketioMessages'></ul>
