@@ -53,7 +53,7 @@ test('Is the correct answer for the riddle retrieved from the database', functio
 
   shot.inject(server.handler, request, function(res){
     var result = res.payload;
-    var expected = '"an umbrella"'
+    var expected = '"rain"'
     t.equal(expected, result, 'Correct answer has been retrieved');
     t.end();
   })
