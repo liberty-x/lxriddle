@@ -19,10 +19,10 @@ var serve = (function() {
       res.writeHead(200, {'Content-Type': 'text/' + ext});
       res.end(file);
     } else if (url === '/riddle' || url.indexOf('/newriddle') > -1) {
-      client.RANDOMKEY(function (err, obj){
-        res.writeHead(200,{'Content-Type': 'text/html'});
-        res.end(JSON.stringify(obj));
-      });
+      getRandomRiddle(function(err, obj){
+        console.log(obj);
+        res.end(JSON.stringify(obj))
+      })
     } else if (req.method === 'POST') {
       var postRiddle = (url.split('/')[1]).replace(/%20/g, ' ');
       var postAnswer = (url.split('/')[2]).replace(/%20/g, ' ');
@@ -31,35 +31,48 @@ var serve = (function() {
       });
     } else if (url.indexOf('/answer') > -1) {
       var riddle = (url.split('/')[2]).replace(/%20/g, ' ');
-      console.log('RIDDLE FROM DB >>>>>>>',riddle);
       getAnswer(riddle, function (err, reply) {
-        console.log('ANSWER FROM DB >>>>>', reply);
-        res.end(JSON.stringify(reply));
+        console.log('ERROR>>>>>>', err, 'ANSWERREPLY>>>>>>>', reply)
+        res.end(JSON.stringify(reply.answer));
       });
     }
   }
 
   function create() {
     var server = http.createServer(handler).listen(port);
-    var io = require('socket.io')(server);
-
-    io.on('connection', manageConnection);
-
-    function manageConnection(socket){
-      console.log('a user connected');
-      socket.on('disconnect', function(){
-        console.log('user disconnected');
-      });
-      socket.on('chat message in', function(msg){
-        console.log('message>>>>>>>', msg);
-        io.emit('chat message out', msg);
-      });
-    }
     console.log('Server running at http://' + port);
+    var io = require('socket.io')(server);
+    io.on('connection', manageConnection);
+  }
+
+  function manageConnection(socket){
+    console.log('a user connected');
+    socket.on('disconnect', function(){
+      console.log('user disconnected');
+    });
+    socket.on('chat message in', function(msg){
+      console.log('message>>>>>>>', msg);
+      socket.emit('chat message out', msg);
+    });
   }
 
   function addToDb(riddle, answer, callback){
-    client.HMSET(riddle, 'answer', answer, callback);
+    client.INCR('riddlecount', function(err, riddlecount){
+      client.HMSET(riddlecount, 'riddle', riddle, 'answer', answer, callback);
+    })
+  }
+
+  function getRandomRiddle(callback){
+    client.GET('riddlecount', function(err, reply){
+      var randomNumber = Math.floor(Math.random() * (reply - 2)) + 1;
+      client.HGET(randomNumber, 'riddle', function(err, data){
+        var response = {
+          ID: randomNumber,
+          riddle: data
+        }
+        callback(err,response)
+      });
+    })
   }
 
   function getAnswer(riddle, callback) {
