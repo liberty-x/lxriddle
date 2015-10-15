@@ -4,7 +4,8 @@ var request = new XMLHttpRequest();
   request.onreadystatechange = function() {
     if (request.readyState === 4 && request.status === 200) {
       var output = (request.responseText)
-      document.getElementById('riddle').innerHTML = JSON.parse(output);
+      document.getElementById('riddle').innerHTML = (JSON.parse(output)).riddle;
+      riddleId = ((JSON.parse(output)).ID);
     }
   }
   request.open('GET', '/riddle');
@@ -14,12 +15,10 @@ var request = new XMLHttpRequest();
 document.getElementById('riddleAnswer').addEventListener('submit', function(e) {
   e.preventDefault();
   var answer = document.getElementById('answer').value.toLowerCase();
-  var riddle = document.getElementById('riddle').innerHTML;
-  console.log('FROM USER >>>>>>', answer)
 
   request.onreadystatechange = function() {
     if (request.readyState === 4 && request.status === 200) {
-      var answerFromDb = (JSON.parse(request.responseText)).answer
+      var answerFromDb = (JSON.parse(request.responseText))
      console.log('FROM DB >>>>>>>>', answerFromDb)
       if (answerFromDb === answer) {
         document.getElementById('correctAnswer').innerHTML = 'Correct!'
@@ -28,7 +27,7 @@ document.getElementById('riddleAnswer').addEventListener('submit', function(e) {
       }
     }
   }
-  request.open('GET', '/answer/' + riddle);
+  request.open('GET', '/answer/' + riddleId);
   request.send();
 });
 
@@ -36,7 +35,8 @@ document.getElementById('next').addEventListener('click', function(){
   request.onreadystatechange = function () {
     if (request.readyState === 4 && request.status === 200) {
       var output = (request.responseText)
-      document.getElementById('riddle').innerHTML = JSON.parse(output);
+      document.getElementById('riddle').innerHTML = (JSON.parse(output)).riddle;
+      riddleId = ((JSON.parse(output)).ID);
     }
   }
   request.open('GET', '/newriddle');
