@@ -2,8 +2,7 @@ var serve = (function() {
   var http = require('http');
   var fs = require('fs');
   var redis = require('redis');
-  // remeber to add redis deets to var client for heroku
-  var client = redis.createClient();
+  var client = redis.createClient(process.env.REDIS_URL, {no_ready_check: true});
   var port = process.env.PORT || 8000;
   var index = fs.readFileSync(__dirname + '/public/index.html')
 
