@@ -2,7 +2,7 @@
   "name": "lxriddle",
   "version": "1.0.0",
   "description": "The search for a riddle-based forum is over",
-  "main": "handler.js",
+  "main": "server.js",
   "directories": {
     "test": "test"
   },
