@@ -28,29 +28,15 @@
 
 
       <ul id='socketioMessages'></ul>
-    <!-- <footer> -->
+    <footer>
       <form class='socketioForm' id='chatForm' action=''>
-        <input class='socketioInput' id='m' autocomplete='off' />
+        <input class='socketioInput' id='messageInput' autocomplete='off' />
         <button class='socketioButton'>Send</button>
       </form>
-    <!-- </footer> -->
+    </footer>
 
-    <script src = '/public/frontend.js'></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-    var socket = io();
-    var messages = document.getElementById('socketioMessages');
-    document.getElementById('chatForm').addEventListener('submit', function(e) {
-      var input = document.getElementById('m');
-      console.log(input.value);
-      e.preventDefault();
-      socket.emit('chat message in', input.value);
-      input.value = '';
-    });
-    socket.on('chat message out', function(msg) {
-      messages.innerHTML += ("<li>" + msg + "</li>");
-    });
-  </script>
+    <script src = '/public/frontend.js'></script>
   </body>
 
 </html>
