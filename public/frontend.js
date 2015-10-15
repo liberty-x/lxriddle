@@ -1,26 +1,25 @@
-(function pageLoad() {
-  var riddleReq = new XMLHttpRequest();
+var request = new XMLHttpRequest();
 
-  riddleReq.onreadystatechange = function() {
-    if (riddleReq.readyState === 4 && riddleReq.status === 200) {
-      var output = (riddleReq.responseText).replace(/%20/g, ' ')
+(function pageLoad() {
+  request.onreadystatechange = function() {
+    if (request.readyState === 4 && request.status === 200) {
+      var output = (request.responseText).replace(/%20/g, ' ')
       document.getElementById('riddle').innerHTML = JSON.parse(output);
     }
   }
-  riddleReq.open('GET', '/riddle');
-  riddleReq.send();
+  request.open('GET', '/riddle');
+  request.send();
 }());
 
 document.getElementById('riddleAnswer').addEventListener('submit', function(e) {
   e.preventDefault();
-  var answerReq = new XMLHttpRequest();
   var answer = document.getElementById('answer').value.toLowerCase();
   var riddle = document.getElementById('riddle').innerHTML;
   console.log('FROM USER >>>>>>', answer)
 
-  answerReq.onreadystatechange = function() {
-    if (answerReq.readyState === 4 && answerReq.status === 200) {
-      var answerFromDb = (JSON.parse(answerReq.responseText).answer).replace(/%20/g, ' ')
+  request.onreadystatechange = function() {
+    if (request.readyState === 4 && request.status === 200) {
+      var answerFromDb = (JSON.parse(request.responseText).answer).replace(/%20/g, ' ')
      console.log('FROM DB >>>>>>>>', answerFromDb)
       if (answerFromDb === answer) {
         document.getElementById('correctAnswer').innerHTML = 'Correct!'
@@ -29,6 +28,17 @@ document.getElementById('riddleAnswer').addEventListener('submit', function(e) {
       }
     }
   }
-  answerReq.open('GET', '/answer/' + riddle);
-  answerReq.send();
+  request.open('GET', '/answer/' + riddle);
+  request.send();
 });
+
+document.getElementById('next').addEventListener('click', function(){
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+      var output = (request.responseText).replace(/%20/g, ' ')
+      document.getElementById('riddle').innerHTML = JSON.parse(output);
+    }
+  }
+  request.open('GET', '/newriddle');
+  request.send();
+})

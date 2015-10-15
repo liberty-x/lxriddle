@@ -42,3 +42,7 @@ h2, p, form, h4 {
 .postRiddle {
   padding-top: 5em;
 }
+
+#correctAnswer {
+  height: 2em;
+}

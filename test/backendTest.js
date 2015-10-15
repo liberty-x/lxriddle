@@ -44,6 +44,20 @@ test('has the riddle been posted to the database', function(t){
     var expected = 'OK'
     t.equal(expected, result, 'Riddle is posted to DB');
     t.end();
-    server.client.quit();
   });
 });
+
+test('Is the correct answer for the riddle retrieved from the database', function(t){
+  var request = {
+    method: 'GET',
+    url: '/answer/What%20goes%20down%20but%20never%20goes%20up'
+  }
+
+  shot.inject(server.handler, request, function(res){
+    var result = res.payload;
+    var expected = '{"answer":"rain"}'
+    t.equal(expected, result, 'Correct answer has been retrieved');
+    t.end();
+    server.client.quit();
+  })
+})

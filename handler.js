@@ -14,12 +14,12 @@ var serve = (function() {
     if (url === '/') {
       res.writeHead(200, {'Content-Type': 'text/html'})
       res.end(index);
-    } else if (url.indexOf('.html') > -1 || url.indexOf('.css') > -1 || url.indexOf('.js') > -1 || url.indexOf('ico') > -1) {
+    } else if (url.indexOf('.html') > -1 || url.indexOf('.css') > -1 || url.indexOf('.js') > -1 || url.indexOf('.ico') > -1) {
       var ext = url.split('.')[1]
       var file = fs.readFileSync(__dirname + url)
       res.writeHead(200, {'Content-Type': 'text/' + ext})
       res.end(file);
-    } else if (url === '/riddle'){
+    } else if (url === '/riddle' || url.indexOf('/newriddle') > -1) {
       client.RANDOMKEY(function (err, obj){
         res.writeHead(200,{'Content-Type': 'text/html'})
         res.end(JSON.stringify(obj));
@@ -36,7 +36,6 @@ var serve = (function() {
         res.end(JSON.stringify(reply))
       })
     }
-
   }
 
   function create() {
