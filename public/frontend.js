@@ -19,7 +19,6 @@ document.getElementById('riddleAnswer').addEventListener('submit', function(e) {
   request.onreadystatechange = function() {
     if (request.readyState === 4 && request.status === 200) {
       var answerFromDb = (JSON.parse(request.responseText));
-     console.log('FROM DB >>>>>>>>', answerFromDb);
       if (answerFromDb === answer) {
         document.getElementById('correctAnswer').innerHTML = 'Correct!';
       } else {
@@ -74,6 +73,6 @@ document.getElementById('chatForm').addEventListener('submit', function(e) {
   socket.emit('chat message in', input.value);
   input.value = '';
 });
-socket.on('chat message out', function(msg) {
+  socket.on('chat message out', function(msg) {
   messages.innerHTML += ("<li>" + msg + "</li>");
 });
