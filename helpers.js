@@ -57,8 +57,7 @@ function generateAndStoreToken(req){
 
 function generateGUID(){
   var id = guid.create();
-  console.log(id);
-  return id
+  return id;
 }
 
 function generateToken(req, id){
