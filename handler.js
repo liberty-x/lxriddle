@@ -87,6 +87,9 @@
   module.exports = {
     handler: handler,
     create: create,
-    client: client
+    client: client,
+    getAnswer : getAnswer,
+    getRandomRiddle : getRandomRiddle,
+    addToDb : addToDb,
+    manageConnection : manageConnection
   };
-  
