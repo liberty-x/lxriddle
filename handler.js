@@ -25,20 +25,32 @@
       res.end(file);
     } else if (url === '/riddle' || url.indexOf('/newriddle') > -1) {
       getRandomRiddle(function(err, obj) {
+        if (err) {
+          console.log(err);
+        } else {
         console.log(obj);
         res.end(JSON.stringify(obj));
-      });
+      }
+    });
     } else if (req.method === 'POST') {
       var postRiddle = (url.split('/')[1]).replace(/%20/g, ' ');
       var postAnswer = (url.split('/')[2]).replace(/%20/g, ' ');
       addToDb(postRiddle, postAnswer, function(err, reply) {
+        if (err) {
+          console.log(err);
+        } else {
         res.end(reply);
+      }
       });
     } else if (url.indexOf('/answer') > -1) {
       var riddle = (url.split('/')[2]).replace(/%20/g, ' ');
       getAnswer(riddle, function (err, reply) {
+        if (err) {
+          console.log(err);
+        } else {
         console.log('ERROR>>>>>>', err, 'ANSWERREPLY>>>>>>>', reply);
         res.end(JSON.stringify(reply.answer));
+      }
       });
     }
   }
@@ -63,9 +75,13 @@
 
   function addToDb(riddle, answer, callback) {
     client.INCR('riddlecount', function(err, riddlecount) {
+      if (err) {
+        console.log(err);
+      } else {
       client.HMSET(riddlecount, 'riddle', riddle, 'answer', answer, callback);
+    }
     });
-  }
+}
 
   function getRandomRiddle(callback) {
     client.GET('riddlecount', function(err, reply) {
