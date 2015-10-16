@@ -54,19 +54,33 @@ h2, p, form, h4 {
 .splash {
   background-color: #669999;
 }
-form {
-  margin-left: auto;
+
+
+
+.form-css {
+  width: 400px;
+    margin: auto;
+
+  /*margin-left: auto;
   margin-right: auto;
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;*/
+
 }
+
+
 .answer {
   background-color: #FFFFCC;
 }
-form * {
+.form-css * {
   font-size: 1em;
   border: none;
   padding: 1%;
   border-radius: 3px;
-  display: inline-block;
+  height: 2em;
+  display: inline;
+
 }
 button {
   background-color: #669999;
