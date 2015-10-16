@@ -42,9 +42,15 @@ a {
 a:hover {
   color: #b7b7b7;
 }
-h2, p, form, h4 {
+h1, p, form, h4 {
   text-align: center;
 }
+p, h1 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+
 .image-logo {
   width: 60%;
   display: block;
@@ -60,13 +66,6 @@ h2, p, form, h4 {
 .form-css {
   width: 400px;
     margin: auto;
-
-  /*margin-left: auto;
-  margin-right: auto;
-  display: inline-block;
-  vertical-align: top;
-  width: 100%;*/
-
 }
 
 
@@ -103,13 +102,33 @@ button:hover{
 #correctAnswer {
   height: 2em;
 }
+
+/*socket chat styling */
+
 footer {
   margin-bottom: 0px;
 }
+
+.chat-area {
+  background-color: #BDDBD8;
+  height: 300px;
+  width: 100%;
+}
+
+.chat-title {
+  text-align: center;
+  color: white;
+  margin: 1%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+  padding-top: 2%;
+  font-size: 2em;
+}
+
 .socketioForm {
   background: #000;
   padding: 3px;
-  position: fixed;
+  /*position: fixed;*/
   bottom: 0;
   width: 100%;
   display: inline-block;

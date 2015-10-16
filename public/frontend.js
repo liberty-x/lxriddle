@@ -32,6 +32,7 @@ document.getElementById('riddleAnswer').addEventListener('submit', function(e) {
 });
 
 document.getElementById('next').addEventListener('click', function(){
+  document.getElementById('correctAnswer').innerHTML = '';
   request.onreadystatechange = function () {
     if (request.readyState === 4 && request.status === 200) {
       var output = (request.responseText);
