@@ -19,7 +19,6 @@ document.getElementById('riddleAnswer').addEventListener('submit', function(e) {
   request.onreadystatechange = function() {
     if (request.readyState === 4 && request.status === 200) {
       var answerFromDb = (JSON.parse(request.responseText));
-     console.log('FROM DB >>>>>>>>', answerFromDb);
       if (answerFromDb === answer) {
         document.getElementById('correctAnswer').innerHTML = 'Correct!';
       } else {
