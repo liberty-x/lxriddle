@@ -31,13 +31,17 @@ var serve = (function() {
       app.authHandler(req,res);
 
     } else if (req.method === 'POST') {
-      console.log(res);
-      app.validate(req,res, addToDb);
+      // console.log(res);
+      // app.validate(req,res, callback);
+      // console.log(res);
+      // if(res.responseText === "Verified"){
+        var postRiddle = (url.split('/')[1]).replace(/%20/g, ' ');
+        var postAnswer = (url.split('/')[2]).replace(/%20/g, ' ');
+        addToDb(postRiddle, postAnswer, function(err, reply){
+      // } else{
+      //   res.end("Please login first")
+      // }
 
-      // console.log("RESPONSE", res);
-      var postRiddle = (url.split('/')[1]).replace(/%20/g, ' ');
-      var postAnswer = (url.split('/')[2]).replace(/%20/g, ' ');
-      addToDb(postRiddle, postAnswer, function(err, reply){
         res.end(reply);
       });
 

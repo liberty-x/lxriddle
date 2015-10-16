@@ -62,7 +62,7 @@ document.getElementById("postRiddle").addEventListener("submit", function(e) {
     }
   };
   request.open("POST", "/" + riddleQuestion + "/" + riddleAnswer);
-  request.setRequestHeader('authorisation', token);
+  // request.setRequestHeader('authorisation', token);
   request.send();
 });
 

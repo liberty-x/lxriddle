@@ -38,7 +38,7 @@ function authSuccess(req, res) {
 
 function authFail(res, callback){
   res.writeHead(401, {'Content-Type' : 'text.html'});
-  return res.end("Please login or sign up");
+  return res.end("username: dummy pw: 123");
 }
 
 function generateAndStoreToken(req){
