@@ -87,11 +87,15 @@
     client.GET('riddlecount', function(err, reply) {
       var randomNumber = Math.floor(Math.random() * (reply - 2)) + 1;
       client.HGET(randomNumber, 'riddle', function(err, data) {
+        if (err) {
+          console.log(err);
+        } else {
         var response = {
           ID: randomNumber,
           riddle: data
         };
         callback(err, response);
+      }
       });
     });
   }
