@@ -21,8 +21,8 @@ var serve = (function() {
     } else if (url === '/riddle' || url.indexOf('/newriddle') > -1) {
       getRandomRiddle(function(err, obj){
         console.log(obj);
-        res.end(JSON.stringify(obj))
-      })
+        res.end(JSON.stringify(obj));
+      });
     } else if (req.method === 'POST') {
       var postRiddle = (url.split('/')[1]).replace(/%20/g, ' ');
       var postAnswer = (url.split('/')[2]).replace(/%20/g, ' ');
@@ -32,7 +32,7 @@ var serve = (function() {
     } else if (url.indexOf('/answer') > -1) {
       var riddle = (url.split('/')[2]).replace(/%20/g, ' ');
       getAnswer(riddle, function (err, reply) {
-        console.log('ERROR>>>>>>', err, 'ANSWERREPLY>>>>>>>', reply)
+        console.log('ERROR>>>>>>', err, 'ANSWERREPLY>>>>>>>', reply);
         res.end(JSON.stringify(reply.answer));
       });
     }
@@ -43,23 +43,24 @@ var serve = (function() {
     console.log('Server running at http://' + port);
     var io = require('socket.io')(server);
     io.on('connection', manageConnection);
-  }
 
-  function manageConnection(socket){
-    console.log('a user connected');
-    socket.on('disconnect', function(){
-      console.log('user disconnected');
-    });
-    socket.on('chat message in', function(msg){
-      console.log('message>>>>>>>', msg);
-      socket.emit('chat message out', msg);
-    });
+    function manageConnection(socket){
+      console.log('a user connected');
+      socket.on('disconnect', function(){
+        console.log('user disconnected');
+      });
+      socket.on('chat message in', function(msg){
+        console.log('message>>>>>>>', msg);
+        io.emit('chat message out', msg);
+      });
+    }
+
   }
 
   function addToDb(riddle, answer, callback){
     client.INCR('riddlecount', function(err, riddlecount){
       client.HMSET(riddlecount, 'riddle', riddle, 'answer', answer, callback);
-    })
+    });
   }
 
   function getRandomRiddle(callback){
@@ -69,10 +70,10 @@ var serve = (function() {
         var response = {
           ID: randomNumber,
           riddle: data
-        }
-        callback(err,response)
+        };
+        callback(err,response);
       });
-    })
+    });
   }
 
   function getAnswer(riddle, callback) {
