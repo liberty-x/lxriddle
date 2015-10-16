@@ -1,9 +1,10 @@
-var serve = (function() {
   var http = require('http');
   var app = require("./helpers.js");
   var fs = require('fs');
   var redis = require('redis');
-  var client = redis.createClient(process.env.REDIS_URL, {no_ready_check: true});
+  var client = redis.createClient(process.env.REDIS_URL, {
+    no_ready_check: true
+  });
   var port = process.env.PORT || 8000;
   var index = fs.readFileSync(__dirname + '/public/index.html');
 
@@ -12,17 +13,21 @@ var serve = (function() {
     console.log(req.method);
     console.log(url);
     if (url === '/') {
-      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.writeHead(200, {
+        'Content-Type': 'text/html'
+      });
       res.end(index);
 
     } else if (url.indexOf('.html') > -1 || url.indexOf('.css') > -1 || url.indexOf('.js') > -1 || url.indexOf('.ico') > -1) {
       var ext = url.split('.')[1];
       var file = fs.readFileSync(__dirname + url);
-      res.writeHead(200, {'Content-Type': 'text/' + ext});
+      res.writeHead(200, {
+        'Content-Type': 'text/' + ext
+      });
       res.end(file);
 
     } else if (url === '/riddle' || url.indexOf('/newriddle') > -1) {
-      getRandomRiddle(function(err, obj){
+      getRandomRiddle(function(err, obj) {
         console.log(obj);
         res.end(JSON.stringify(obj));
       });
@@ -38,16 +43,16 @@ var serve = (function() {
         var postRiddle = (url.split('/')[1]).replace(/%20/g, ' ');
         var postAnswer = (url.split('/')[2]).replace(/%20/g, ' ');
         addToDb(postRiddle, postAnswer, function(err, reply){
+          res.end(reply);
+        });
       // } else{
       //   res.end("Please login first")
       // }
 
-        res.end(reply);
-      });
-
     } else if (url.indexOf('/answer') > -1) {
       var riddle = (url.split('/')[2]).replace(/%20/g, ' ');
-      getAnswer(riddle, function (err, reply) {
+
+      getAnswer(riddle, function(err, reply) {
         console.log('ERROR>>>>>>', err, 'ANSWERREPLY>>>>>>>', reply);
         res.end(JSON.stringify(reply.answer));
       });
@@ -61,32 +66,33 @@ var serve = (function() {
     io.on('connection', manageConnection);
   }
 
-  function manageConnection(socket){
+  function manageConnection(socket) {
     console.log('a user connected');
-    socket.on('disconnect', function(){
+    socket.on('disconnect', function() {
       console.log('user disconnected');
     });
-    socket.on('chat message in', function(msg){
+    socket.on('chat message in', function(msg) {
       console.log('message>>>>>>>', msg);
       socket.emit('chat message out', msg);
     });
   }
 
-  function addToDb(riddle, answer, callback){
-    client.INCR('riddlecount', function(err, riddlecount){
+  function addToDb(riddle, answer, callback) {
+    client.INCR('riddlecount', function(err, riddlecount) {
       client.HMSET(riddlecount, 'riddle', riddle, 'answer', answer, callback);
     });
   }
 
-  function getRandomRiddle(callback){
-    client.GET('riddlecount', function(err, reply){
+  function getRandomRiddle(callback) {
+    client.GET('riddlecount', function(err, reply) {
       var randomNumber = Math.floor(Math.random() * (reply - 2)) + 1;
-      client.HGET(randomNumber, 'riddle', function(err, data){
+      client.HGET(randomNumber, 'riddle', function(err, data) {
         var response = {
           ID: randomNumber,
           riddle: data
         };
-        callback(err,response);
+
+        callback(err, response);
       });
     });
   }
@@ -95,11 +101,12 @@ var serve = (function() {
     client.HGETALL(riddle, callback);
   }
 
-  return {
+  module.exports = {
     handler: handler,
     create: create,
-    client: client
+    client: client,
+    getAnswer : getAnswer,
+    getRandomRiddle : getRandomRiddle,
+    addToDb : addToDb,
+    manageConnection : manageConnection
   };
-}());
-
-module.exports = serve;
