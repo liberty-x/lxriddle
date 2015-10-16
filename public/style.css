@@ -1,6 +1,4 @@
-* {
-  font-family: sans-serif;
-}
+
 body {
   margin: 0;
   padding: 0;
@@ -20,21 +18,49 @@ body {
   float: left;
   -webkit-margin-before: 1em;
 -webkit-margin-after: 1em;
-margin-left: 1em;
+margin-left: 2em;
 }
 
-ul {
+.nav-elements {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   float: right;
-  padding-right: 1em;
+  padding-right: 0.4em;
+  width: 600px;
 }
-li {
+.nav-elements li {
   float: left;
   padding-left: 2em;
-  font-size: 1em;
   list-style-type: none;
+  margin: 0px;
 }
+
+.nav-elements li input[type="text"]{
+  font-size: 1em;
+}
+
+.nav-elements li input[type="password"]{
+  font-size: 1em;
+}
+
+.nav-elements li input[type="submit"]{
+  font-size: 1em;
+}
+
+.nav-elements * {
+  border: none;
+  border-radius: 3px;
+}
+
+.login-green {
+  background-color: #BDDBD8;
+}
+
+.login-button{
+  background-color: #669999;
+  color: black;
+}
+
 a {
   text-decoration: none;
   color: #F3F5F4;
@@ -57,10 +83,14 @@ h2, h1 {
   margin-left: auto;
   margin-right: auto
 }
+/*log nav bar styling */
+
+.riddle {
+  margin-bottom: 4%;
+}
 .splash {
   background-color: #669999;
 }
-
 
 
 .form-css {
@@ -71,11 +101,15 @@ h2, h1 {
 
 .answer {
   background-color: #FFFFCC;
+  font-size: 1em;
+  border: none;
+  border-radius: 3px;
+  height: 2em;
+  display: inline;
 }
 .form-css * {
   font-size: 1em;
   border: none;
-  padding: 1%;
   border-radius: 3px;
   height: 2em;
   display: inline;
@@ -88,8 +122,32 @@ button {
 button:hover{
   background: #009999;
 }
+
+.correct-answer{
+  text-align: center;
+  font-size: 3em;
+  color: #669999
+}
+.mid-color-break {
+  background-color: #CCCCCC;
+  font-family: 'Montserrat', sans-serif;
+  font-style: italic;
+  text-align: center;
+  font-weight: lighter;
+  padding: 3.5%;
+  color: white;
+  font-size: 2.5em;
+  font-weight: 100;
+}
+
 .submit-button {
   background-color: #666699;
+  border-style: none;
+  font-size: 1em;
+  /*padding: 1%;*/
+  border-radius: 3px;
+  height: 2em;
+  display: inline;
 }
 
 .submit-button:hover {
@@ -145,13 +203,13 @@ footer {
   /*position: fixed;*/
   bottom: 0;
   width: 100%;
-  display: inline-block;
+  display: inline-flex;
   margin: 0px;
 }
 .socketioInput {
   border: 0;
   padding: 10px;
-  width: 90%;
+  width: 89%;
   margin-right: .5%;
 }
 .socketioButton {
