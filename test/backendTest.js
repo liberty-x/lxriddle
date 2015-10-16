@@ -35,11 +35,11 @@ test('has the riddle been posted to the database', function(t){
   var request = {
     method: 'POST',
     url: '/' + 'What goes down but never goes up' + '/' + 'rain'
-  }
+  };
 
   shot.inject(server.handler, request, function(res){
     var result = res.payload;
-    var expected = 'OK'
+    var expected = 'OK';
     t.equal(expected, result, 'Riddle is posted to DB');
     t.end();
   });
@@ -49,27 +49,27 @@ test('Is the correct answer for the riddle retrieved from the database', functio
   var request = {
     method: 'GET',
     url: '/answer/1'
-  }
+  };
 
   shot.inject(server.handler, request, function(res){
     var result = res.payload;
-    var expected = '"rain"'
+    var expected = '"rain"';
     t.equal(expected, result, 'Correct answer has been retrieved');
     t.end();
-  })
-})
+  });
+});
 
 test('Is a random riddle being generated', function(t){
   var request = {
     method: 'GET',
     url: '/riddle'
-  }
+  };
 
   shot.inject(server.handler, request, function(res){
     var result = res.statusCode;
-    var expected = 200
+    var expected = 200;
     t.equal(expected, result, 'Random riddle has been generated');
     t.end();
     server.client.quit();
-  })
-})
+  });
+});
