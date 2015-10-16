@@ -1,45 +1,60 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
   <head>
-    <link rel ='stylesheet' href= '/public/style.css'>
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <link rel ="stylesheet" href= "/public/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   </head>
 
   <body>
 
-    <div class='navbar'>
+
+    <div class="navbar">
       <img class="nav-logo" src="https://files.gitter.im/RachelBLondon/libert-x/rI9D/logoTextWhite-06.png" alt="LX Riddle" />
-      <ul>
-        <a href ='/public/login.html'><li>Login</li></a>
-        <a href='/public/postRiddle.html'><li>Post Your Own Riddle</li></a>
-      <ul>
+      <form id="auth">
+        <p id="loginResponse"></p>
+        <ul>
+          <li><input type="text" placeholder="username" id="username"></li>
+          <li><input type="password" placeholder="password" id="password"></li>
+          <li><input type="submit"></li>
+        </ul>
+      </form>
     </div>
     <div class="splash">
 
     <img class="image-logo" src="https://files.gitter.im/RachelBLondon/libert-x/VJiM/logo-blue-shirt-07-07.png" alt="LX Riddle Logo" />
     </div>
-    <p id='riddle'></p>
+    <p id="riddle"></p>
     <h2> Can you solve it?</h2>
 
-    <form id='riddleAnswer'>
-      <input type='text' placeholder='answer' id='answer' class="answer"></input>
-      <input type='submit' class="submit-button" ></input>
+    <form id="riddleAnswer">
+      <input type="text" placeholder="answer" id="answer" class="answer">
+      <input type="submit" class="submit-button">
     </form>
 
-    <p id='correctAnswer'></p>
+    <p id="correctAnswer"></p>
+  <div class = "postYourRiddle">
+    <h2>Enter your own riddle below</h2>
 
-    <button id='next'>New Riddle</button>
+    <form class="postRiddle" id="postRiddle">
+      <input type="text" placeholder="Riddle" id="newRiddle">
+      <input type="text" placeholder="Answer" id="newRiddleAns">
+      <input type="submit" id="submitRiddle">
+    </form>
+
+    <h4 id="riddleAdded"></h4>
+  </div>
+  <button id="next">New Riddle</button>
 
 
-      <ul id='socketioMessages'></ul>
+      <ul id="socketioMessages"></ul>
 
-      <form class='socketioForm' id='chatForm' action=''>
-        <input class='socketioInput' id='messageInput' autocomplete='off' />
-        <button class='socketioButton'>Send</button>
+      <form class="socketioForm" id="chatForm" action="">
+        <input class="socketioInput" id="messageInput" autocomplete="off" />
+        <button class="socketioButton">Send</button>
       </form>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src = '/public/frontend.js'></script>
+    <script src = "/public/frontend.js"></script>
   </body>
 
 </html>
