@@ -30,6 +30,8 @@
     "tape": "^4.2.1"
   },
   "pre-commit": [
+    "test",
+    "coverage"
   ],
   "dependencies": {
     "jsonwebtoken": "^5.4.0",

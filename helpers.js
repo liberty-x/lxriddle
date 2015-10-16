@@ -2,19 +2,19 @@ var fs = require("fs");
 var qs = require("querystring");
 var jwt = require("jsonwebtoken");
 var secret = process.env.JWT_SECRET || "banana";
-var uuid = require('uuid');
-var client = require('./redis.js');
+var uuid = require("uuid");
+var client = require("./redis.js");
 
-var u = {un: 'dummy', pw: '123'};
+var u = {un: "dummy", pw: "123"};
 
 function authHandler(req, res){
   console.log(req.url);
-  if (req.method === 'POST'){
-    var body = '';
-    req.on('data', function(data){
+  if (req.method === "POST"){
+    var body = "";
+    req.on("data", function(data){
       body += data;
     });
-    req.on('end', function(){
+    req.on("end", function(){
             console.log(body);
       var post = JSON.parse(body);
       if (post.username && post.username === u.un && post.password && post.password === u.pw) {
@@ -29,14 +29,14 @@ function authHandler(req, res){
 function authSuccess(req, res) {
   var token = generateAndStoreToken(req);
   res.writeHead(200, {
-    'Content-Type' : 'text.html',
-    'authorisation' : token
+    "Content-Type" : "text.html",
+    "authorisation" : token
   });
-  return res.end('Logged In!');
+  return res.end("Logged In!");
 }
 
 function authFail(res, callback){
-  res.writeHead(401, {'Content-Type' : 'text.html'});
+  res.writeHead(401, {"Content-Type" : "text.html"});
   return res.end("Please login or sign up");
 }
 
@@ -48,7 +48,7 @@ function generateAndStoreToken(req){
     "created" : new Date().getTime()
   };
   client.SET(id, JSON.stringify(record), function(err, reply){
-    console.log('REDIS err >>>>>', err, 'REDIS reply >>>>>', reply);
+    console.log("REDIS err >>>>>", err, "REDIS reply >>>>>", reply);
   });
 
   return token;
@@ -61,7 +61,7 @@ function generateGUID(){
 function generateToken(req, id){
   var token = jwt.sign({
     auth : id,
-    agent : req.headers['user-agent']
+    agent : req.headers["user-agent"]
   }, secret);
   return token;
 }
@@ -103,8 +103,8 @@ function verify(token){
 
 // function confidential(res, token){
 //   res.writeHead(200, {
-//     'Content-Type' : 'text/html',
-//     'authorisation' :  token
+//     "Content-Type" : "text/html",
+//     "authorisation" :  token
 //   });
 //   return res.end("OK");
 // }
