@@ -64,16 +64,21 @@ document.getElementById("postRiddle").addEventListener("submit", function(e) {
   request.send();
 });
 
-
-var socket = io();
-var messages = document.getElementById('socketioMessages');
-document.getElementById('chatForm').addEventListener('submit', function(e) {
-  var input = document.getElementById('messageInput');
-  console.log(input.value);
+document.getElementById('auth').addEventListener('submit', function(e) {
   e.preventDefault();
-  socket.emit('chat message in', input.value);
-  input.value = '';
-});
-socket.on('chat message out', function(msg) {
-  messages.innerHTML += ("<li>" + msg + "</li>");
-});
+  var username = document.getElementById('username').value;
+  var password = document.getElementById('password').value;
+  var obj = {
+    'username' : username,
+    'password' : password
+  };
+  request.onreadystatechange = function() {
+    if (request.readyState === 4 && request.status === 200) {
+        document.getElementById('loginResponse').innerHTML = 'Logged In!';
+      } else {
+        document.getElementById('loginResponse').innerHTML = 'Please Log in';
+      }
+    };
+    request.open('GET', '/auth');
+    request.send(JSON.stringify(obj));
+  });

@@ -13,26 +13,33 @@ var serve = (function() {
     if (url === '/') {
       res.writeHead(200, {'Content-Type': 'text/html'});
       res.end(index);
+
     } else if (url.indexOf('.html') > -1 || url.indexOf('.css') > -1 || url.indexOf('.js') > -1 || url.indexOf('.ico') > -1) {
       var ext = url.split('.')[1];
       var file = fs.readFileSync(__dirname + url);
       res.writeHead(200, {'Content-Type': 'text/' + ext});
       res.end(file);
+
     } else if (url === '/riddle' || url.indexOf('/newriddle') > -1) {
       getRandomRiddle(function(err, obj){
         console.log(obj);
-        res.end(JSON.stringify(obj))
-      })
+        res.end(JSON.stringify(obj));
+      });
+
+    } else if (url === '/auth'){
+      
+
     } else if (req.method === 'POST') {
       var postRiddle = (url.split('/')[1]).replace(/%20/g, ' ');
       var postAnswer = (url.split('/')[2]).replace(/%20/g, ' ');
       addToDb(postRiddle, postAnswer, function(err, reply){
         res.end(reply);
       });
+
     } else if (url.indexOf('/answer') > -1) {
       var riddle = (url.split('/')[2]).replace(/%20/g, ' ');
       getAnswer(riddle, function (err, reply) {
-        console.log('ERROR>>>>>>', err, 'ANSWERREPLY>>>>>>>', reply)
+        console.log('ERROR>>>>>>', err, 'ANSWERREPLY>>>>>>>', reply);
         res.end(JSON.stringify(reply.answer));
       });
     }
@@ -59,7 +66,7 @@ var serve = (function() {
   function addToDb(riddle, answer, callback){
     client.INCR('riddlecount', function(err, riddlecount){
       client.HMSET(riddlecount, 'riddle', riddle, 'answer', answer, callback);
-    })
+    });
   }
 
   function getRandomRiddle(callback){
@@ -69,10 +76,10 @@ var serve = (function() {
         var response = {
           ID: randomNumber,
           riddle: data
-        }
-        callback(err,response)
+        };
+        callback(err,response);
       });
-    })
+    });
   }
 
   function getAnswer(riddle, callback) {
