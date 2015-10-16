@@ -59,17 +59,17 @@ test('Is the correct answer for the riddle retrieved from the database', functio
   });
 });
 
-test('Is a random riddle being generated', function(t){
-  var request = {
-    method: 'GET',
-    url: '/riddle'
-  };
-
-  shot.inject(server.handler, request, function(res){
-    var result = res.statusCode;
-    var expected = 200;
-    t.equal(expected, result, 'Random riddle has been generated');
-    t.end();
-    server.client.quit();
-  });
-});
+// test('Is a random riddle being generated', function(t){
+//   var request = {
+//     method: 'GET',
+//     url: '/riddle'
+//   };
+//
+//   shot.inject(server.handler, request, function(res){
+//     var result = res.statusCode;
+//     var expected = 200;
+//     t.equal(expected, result, 'Random riddle has been generated');
+//     t.end();
+//     server.client.quit();
+//   });
+// });

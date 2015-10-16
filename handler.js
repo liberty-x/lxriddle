@@ -1,4 +1,5 @@
   var http = require('http');
+  var app = require("./helpers.js");
   var fs = require('fs');
   var redis = require('redis');
   var client = redis.createClient(process.env.REDIS_URL, {
@@ -16,6 +17,7 @@
         'Content-Type': 'text/html'
       });
       res.end(index);
+
     } else if (url.indexOf('.html') > -1 || url.indexOf('.css') > -1 || url.indexOf('.js') > -1 || url.indexOf('.ico') > -1) {
       var ext = url.split('.')[1];
       var file = fs.readFileSync(__dirname + url);
@@ -23,19 +25,33 @@
         'Content-Type': 'text/' + ext
       });
       res.end(file);
+
     } else if (url === '/riddle' || url.indexOf('/newriddle') > -1) {
       getRandomRiddle(function(err, obj) {
         console.log(obj);
         res.end(JSON.stringify(obj));
       });
+
+    } else if(url === "/auth"){
+      app.authHandler(req,res);
+
     } else if (req.method === 'POST') {
-      var postRiddle = (url.split('/')[1]).replace(/%20/g, ' ');
-      var postAnswer = (url.split('/')[2]).replace(/%20/g, ' ');
-      addToDb(postRiddle, postAnswer, function(err, reply) {
-        res.end(reply);
-      });
+      // console.log(res);
+      // app.validate(req,res, callback);
+      // console.log(res);
+      // if(res.responseText === "Verified"){
+        var postRiddle = (url.split('/')[1]).replace(/%20/g, ' ');
+        var postAnswer = (url.split('/')[2]).replace(/%20/g, ' ');
+        addToDb(postRiddle, postAnswer, function(err, reply){
+          res.end(reply);
+        });
+      // } else{
+      //   res.end("Please login first")
+      // }
+
     } else if (url.indexOf('/answer') > -1) {
       var riddle = (url.split('/')[2]).replace(/%20/g, ' ');
+
       getAnswer(riddle, function(err, reply) {
         console.log('ERROR>>>>>>', err, 'ANSWERREPLY>>>>>>>', reply);
         res.end(JSON.stringify(reply.answer));
@@ -75,6 +91,7 @@
           ID: randomNumber,
           riddle: data
         };
+
         callback(err, response);
       });
     });
