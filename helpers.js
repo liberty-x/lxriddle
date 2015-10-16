@@ -4,7 +4,7 @@ var redis = require("redis");
 var client = redis.createClient(process.env.REDIS_URL, {no_ready_check: true});
 var jwt = require("jsonwebtoken");
 var secret = process.env.JWT_SECRET || "banana";
-var uuid = require('uuid');
+var guid = require('guid');
 
 var u = {un: 'dummy', pw: '123'};
 
@@ -56,7 +56,9 @@ function generateAndStoreToken(req){
 }
 
 function generateGUID(){
-  return uuid.v1();
+  var id = guid.create();
+  console.log(id);
+  return id
 }
 
 function generateToken(req, id){
