@@ -6,7 +6,7 @@
 # LX Riddle
 The search for a riddle-based forum is over! :+1::+1:
 
-Please find our application [here](http://agile-beyond-9343.herokuapp.com/).
+Please find our application [here](http://agile-beyond-9343.herokuapp.com/). Clue: the username is 'dummy' and the password is '123' (for now).
 
 The tutorial for constructing this application (or one with a similar functionality) can be found at the bottom of this page. Good luck! :four_leaf_clover:
 
