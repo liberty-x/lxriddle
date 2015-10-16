@@ -198,7 +198,7 @@ footer {
 }
 
 .socketioForm {
-  background: #000;
+  background: white;
   padding: 3px;
   /*position: fixed;*/
   bottom: 0;
@@ -211,6 +211,7 @@ footer {
   padding: 10px;
   width: 89%;
   margin-right: .5%;
+  background-color: #FFFFCC;
 }
 .socketioButton {
   width: 9%;
