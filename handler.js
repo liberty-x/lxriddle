@@ -36,7 +36,7 @@
       });
     } else if (url.indexOf('/answer') > -1) {
       var riddle = (url.split('/')[2]).replace(/%20/g, ' ');
-      getAnswer(riddle, function(err, reply) {
+      getAnswer(riddle, function (err, reply) {
         console.log('ERROR>>>>>>', err, 'ANSWERREPLY>>>>>>>', reply);
         res.end(JSON.stringify(reply.answer));
       });
@@ -48,17 +48,17 @@
     console.log('Server running at http://' + port);
     var io = require('socket.io')(server);
     io.on('connection', manageConnection);
-  }
 
-  function manageConnection(socket) {
-    console.log('a user connected');
-    socket.on('disconnect', function() {
-      console.log('user disconnected');
-    });
-    socket.on('chat message in', function(msg) {
-      console.log('message>>>>>>>', msg);
-      socket.emit('chat message out', msg);
-    });
+    function manageConnection(socket){
+      console.log('a user connected');
+      socket.on('disconnect', function(){
+        console.log('user disconnected');
+      });
+      socket.on('chat message in', function(msg){
+        console.log('message>>>>>>>', msg);
+        io.emit('chat message out', msg);
+      });
+    }
   }
 
   function addToDb(riddle, answer, callback) {
@@ -91,5 +91,5 @@
     getAnswer : getAnswer,
     getRandomRiddle : getRandomRiddle,
     addToDb : addToDb,
-    manageConnection : manageConnection
+    // manageConnection : manageConnection
   };
