@@ -42,10 +42,10 @@ a {
 a:hover {
   color: #b7b7b7;
 }
-h1, p, form, h4 {
+h1, h2, form, h4 {
   text-align: center;
 }
-p, h1 {
+h2, h1 {
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -113,7 +113,21 @@ footer {
   background-color: #BDDBD8;
   height: 300px;
   width: 100%;
+  overflow: hidden;
 }
+
+.chat-area ul {
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+
+.chat-area li {
+  font-family: 'Montserrat', sans-serif;
+  height: 1.5em;
+  font-style: italic;
+}
+
 
 .chat-title {
   text-align: center;

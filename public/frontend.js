@@ -54,5 +54,5 @@ document.getElementById('chatForm').addEventListener('submit', function(e) {
   input.value = '';
 });
   socket.on('chat message out', function(msg) {
-  messages.innerHTML += ("<li>" + msg + "</li>");
+  messages.innerHTML += ("<li>" + msg + "</li> <br>");
 });
