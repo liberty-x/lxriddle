@@ -45,22 +45,28 @@ document.getElementById('next').addEventListener('click', function(){
 });
 
 document.getElementById("postRiddle").addEventListener("submit", function(e) {
-  console.log("one");
+  var token = sessionStorage.getItem('token');
   e.preventDefault();
+  if(!token){
+    document.getElementById('riddleAdded').innerHTML = "Please login";
+    return;
+  }
   var riddleQuestion = document.getElementById("newRiddle").value;
   var riddleAnswer = document.getElementById("newRiddleAns").value.toLowerCase();
   console.log(riddleAnswer, riddleQuestion);
 
   request.onreadystatechange = function() {
     if (request.readyState === 4 && request.status === 200) {
+      console.log(request.responseText);
       if (request.responseText === "OK") {
-        document.getElementById("riddleAdded").innerHTML = "Thanks we have added your riddle";
+        document.getElementById("riddleAdded").innerHTML = "Thanks! We have added your riddle";
       } else {
         document.getElementById("riddleAdded").innerHTML = "Sorry there was an error, please try again.";
       }
     }
   };
   request.open("POST", "/" + riddleQuestion + "/" + riddleAnswer);
+  request.setRequestHeader('authorisation', token);
   request.send();
 });
 
@@ -74,11 +80,13 @@ document.getElementById('auth').addEventListener('submit', function(e) {
   };
   request.onreadystatechange = function() {
     if (request.readyState === 4 && request.status === 200) {
-        document.getElementById('loginResponse').innerHTML = 'Logged In!';
+      var token = request.getResponseHeader('authorisation');
+      sessionStorage.setItem('token', token);
+        document.getElementById('loginResponse').innerHTML = request.responseText;
       } else {
-        document.getElementById('loginResponse').innerHTML = 'Please Log in';
+        document.getElementById('loginResponse').innerHTML = request.responseText;
       }
     };
-    request.open('GET', '/auth');
+    request.open('POST', '/auth');
     request.send(JSON.stringify(obj));
   });

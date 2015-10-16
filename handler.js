@@ -1,8 +1,8 @@
 var serve = (function() {
   var http = require('http');
   var fs = require('fs');
-  var redis = require('redis');
-  var client = redis.createClient(process.env.REDIS_URL, {no_ready_check: true});
+  var app = require('./helpers.js');
+  var client = require('./redis.js');
   var port = process.env.PORT || 8000;
   var index = fs.readFileSync(__dirname + '/public/index.html');
 
@@ -22,19 +22,26 @@ var serve = (function() {
 
     } else if (url === '/riddle' || url.indexOf('/newriddle') > -1) {
       getRandomRiddle(function(err, obj){
-        console.log(obj);
         res.end(JSON.stringify(obj));
       });
 
-    } else if (url === '/auth'){
-      
+    }
+    else if (url === '/auth'){
+      app.authHandler(req,res);
 
-    } else if (req.method === 'POST') {
+    }
+    else if (req.method === 'POST') {
       var postRiddle = (url.split('/')[1]).replace(/%20/g, ' ');
       var postAnswer = (url.split('/')[2]).replace(/%20/g, ' ');
-      addToDb(postRiddle, postAnswer, function(err, reply){
-        res.end(reply);
-      });
+      app.validate(req,res, riddleAddAndRespond);
+      function riddleAddAndRespond(res){
+        addToDb(postRiddle, postAnswer, function(err, reply){
+            console.log('ERRORpost>>>>>>', err, 'ANSWERREPLYpost>>>>>>>', reply);
+          res.end(reply);
+        });
+      }
+
+
 
     } else if (url.indexOf('/answer') > -1) {
       var riddle = (url.split('/')[2]).replace(/%20/g, ' ');
