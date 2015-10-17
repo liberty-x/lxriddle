@@ -12,10 +12,10 @@
       <img class="nav-logo" src="https://files.gitter.im/RachelBLondon/libert-x/rI9D/logoTextWhite-06.png" alt="LX Riddle" />
       <form id="auth">
         <p id="loginResponse"></p>
-        <ul>
-          <li><input type="text" placeholder="username" id="username"></li>
-          <li><input type="password" placeholder="password" id="password"></li>
-          <li><input type="submit"></li>
+        <ul class="nav-elements">
+          <li><input type="text" placeholder="username" id="username" class="login-green"></li>
+          <li><input type="password" placeholder="password" id="password" class="login-green"></li>
+          <li><input type="submit"class="login-button"></li>
         </ul>
       </form>
     </div>
@@ -23,7 +23,7 @@
 
     <img class="image-logo" src="https://files.gitter.im/RachelBLondon/libert-x/VJiM/logo-blue-shirt-07-07.png" alt="LX Riddle Logo" />
     </div>
-    <h1 id='riddle'></h1>
+    <h1 id='riddle' class="riddle"></h1>
     <h2> Can you solve it?</h2>
 
 
@@ -34,24 +34,28 @@
           </form>
           <button id='next'>New Riddle</button>
       </div>
+    <p id="correctAnswer" class="correct-answer"
+    ></p>
 
 
 
-    <p id="correctAnswer"></p>
+    <h3 class="mid-color-break"> Can you guess? Yes you can!</h3>
+
+
   <div class = "postYourRiddle">
-    <h2>Enter your own riddle below</h2>
+    <h2>Add your own riddle as well!</h2>
 
     <form class="postRiddle" id="postRiddle">
-      <input type="text" placeholder="Riddle" id="newRiddle">
-      <input type="text" placeholder="Answer" id="newRiddleAns">
-      <input type="submit" id="submitRiddle">
+      <input type="text" placeholder="Riddle" id="newRiddle" class="answer">
+      <input type="text" placeholder="Answer" id="newRiddleAns" class="answer">
+      <input type="submit" id="submitRiddle" class="submit-button">
     </form>
     <h4 id="riddleAdded"></h4>
   </div>
 
 
       <div class="chat-area" >
-        <h3 class="chat-title"> Join in our riddle chat </h3>
+        <h3 class="chat-title"> Join our riddle chat </h3>
         <ul id='socketioMessages'></ul>
       </div>
 
