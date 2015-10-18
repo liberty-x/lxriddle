@@ -52,8 +52,6 @@ document.getElementById("postRiddle").addEventListener("submit", function(e) {
   }
   var riddleQuestion = document.getElementById("newRiddle").value;
   var riddleAnswer = document.getElementById("newRiddleAns").value.toLowerCase();
-  console.log(riddleAnswer, riddleQuestion);
-
   request.onreadystatechange = function() {
     if (request.readyState === 4 && request.status === 200) {
       console.log(request.responseText);
@@ -92,12 +90,17 @@ document.getElementById('auth').addEventListener('submit', function(e) {
 
   var socket = io();
   var messages = document.getElementById('socketioMessages');
+
+
   document.getElementById('chatForm').addEventListener('submit', function(e) {
     var input = document.getElementById('messageInput');
-    console.log(input.value);
     e.preventDefault();
+    if ((input.value).match(/</g)) {
+        messages.innerHTML = 'Please do not script inject our site. Thank you.';
+    } else {
     socket.emit('chat message in', input.value);
     input.value = '';
+    }
   });
     socket.on('chat message out', function(msg) {
     messages.innerHTML += ("<li>" + msg + "</li>");
